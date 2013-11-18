@@ -3,8 +3,10 @@
 <polymer-element name="test-element" noscript>
 
 <template>
-  <!-- This comment will be removed. -->
-  Hello, {{item.description}}<content></content>.
+  <div on-click="{{handleClick}}">
+    <!-- This comment will be removed. -->
+    Hello, {{item.description}}<content></content>.
+  </div>
 </template>
 
 </polymer-element>

@@ -27,7 +27,18 @@ function elementDomToHtml( dom ) {
   } else {
     switch ( dom.type ) {
       case "tag":
-        var openTag = "<" + dom.name + ">";
+        var openTag = "<" + dom.name;
+        if (dom.attribs) {
+          var keys = Object.keys(dom.attribs);
+          for (var i = 0; i < keys.length; ++i) {
+            var key = keys[i];
+            openTag += " " + key;
+            if (dom.attribs[key]) {
+              openTag += "=\\\"" + dom.attribs[key] + "\\\"";
+            }
+          }
+        }
+        openTag += ">";
         var content = elementDomToHtml( dom.children );
         var closeTag = "</" + dom.name + ">";
         html = openTag + content + closeTag;
@@ -37,7 +48,7 @@ function elementDomToHtml( dom ) {
         // Remove quotes;
         html = s.slice( 1, s.length - 1 );
         break;
-      default: 
+      default:
         html = "";
         break;
     }
