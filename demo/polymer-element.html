@@ -9,33 +9,32 @@
 
 <script>
 var Foo = document.register('x-foo', {
+  // We subclass HTMLElement here, but mixin Polymer
   prototype: mixin(Object.create(HTMLElement.prototype), PolymerMixin)
 });
 
-Foo.prototype.enteredView = function() {
-  window.console.log('here');
+// Not needed, but shows that it gets called.
+Foo.prototype.created = function() {};
 
+Foo.prototype.enteredView = function() {
+  // Set up the shadowRoot with the template loaded from JS
   this.shadowFromTemplate(templates['test-element-compiled']);
 };
 
-Foo.prototype.created = function() {
-  window.console.log('here 2');
-};
-
+// Example of the on-click event working from the template.
 Foo.prototype.handleClick = function() {
   window.console.log('got a click!');
 };
 </script>
 
-<div></div>
+<div>
+  <x-foo></x-foo>
+</div>
 <script>
 window.addEventListener('WebComponentsReady', function() {
-  var element = document.createElement('x-foo');
-  document.body.appendChild(element);
-
   var model = {
     description: 'data binding'
   };
-  element.item = model;
+  document.querySelector('x-foo').item = model;
 }, false);
 </script>
