@@ -1,1 +1,1 @@
-r("test-element-compiled","\n  Hello, <content></content>.\n");
+r("test-element-compiled","\n  Hello, {{item.description}}<content></content>.\n");

@@ -1,0 +1,37 @@
+<!doctype html>
+
+<title>Polymer Test</title>
+<meta charset="UTF-8">
+<script src="http://www.polymer-project.org/polymer/polymer.min.js"></script>
+<script src='register.js'></script>
+<script src='test-element-compiled.js'></script>
+<script src="polymer-mixin.js"></script>
+
+<script>
+var Foo = document.register('x-foo', {
+  prototype: mixin(Object.create(HTMLElement.prototype), PolymerMixin)
+});
+
+Foo.prototype.enteredView = function() {
+  window.console.log('here');
+
+  this.shadowFromTemplate(templates['test-element-compiled']);
+};
+
+Foo.prototype.created = function() {
+  window.console.log('here 2');
+};
+</script>
+
+<div></div>
+<script>
+window.addEventListener('WebComponentsReady', function() {
+  var element = document.createElement('x-foo');
+  document.body.appendChild(element);
+
+  var model = {
+    description: 'data binding'
+  };
+  element.item = model;
+}, false);
+</script>

@@ -1,11 +1,15 @@
 // Register the element name such that instantiating it creates a node with
 // the given inner HTML.
-function r( name, innerHTML ) {
-  var p = Object.create( HTMLElement.prototype );
-  var t = document.createElement( "template" );
-  t.innerHTML = innerHTML;
-  p.createdCallback = function() {
-    this.createShadowRoot().appendChild( t.content.cloneNode( true ) );
+(function(scope) {
+
+  var cache = {};
+  function r( name, innerHTML ) {
+    var t = document.createElement( "template" );
+    t.innerHTML = innerHTML;
+    cache[name] = t;
   }
-  document.register( name, { prototype: p });
-}
+
+  scope.templates = cache;
+  scope.r = r;
+})(this);
+
