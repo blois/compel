@@ -1,0 +1,37 @@
+<!doctype html>
+
+<title>Polymer Test</title>
+<meta charset="UTF-8">
+<script src="traceur.js"></script>
+<script src="https://traceur-compiler.googlecode.com/git/src/bootstrap.js"></script>
+<script src="http://www.polymer-project.org/polymer/polymer.min.js"></script>
+<script src='register.js'></script>
+<script src='test-element-compiled.js'></script>
+<script src="polymer-mixin.js"></script>
+
+ <script type="text/traceur">
+  class FooElement extends HTMLElement {
+    //static get extends() { return 'button'; }
+
+    enteredView() {
+      this.shadowFromTemplate(templates['test-element-compiled']);
+    }
+
+    handleClick() {
+      window.console.log('got a click!');
+    }
+  }
+  Object.mixin(FooElement.prototype, PolymerMixin);
+  document.register('x-foo', FooElement);
+</script>
+
+<div>
+  <x-foo></x-foo>
+</div>
+
+<script>
+  var model = {
+    description: 'data binding'
+  };
+  document.querySelector('x-foo').item = model;
+</script>
